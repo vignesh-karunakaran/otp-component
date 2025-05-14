@@ -19,8 +19,31 @@ const PhoneOtp = ({length= 4, onOtpSubmit}) => {
             inputRefs.current[index + 1].focus();
         }
     };
-    const handleClick = () => {};
-    const handleKeydown = () => {};
+    const handleClick = (i) => {
+        return () => {
+            if(inputRefs.current[i]) {
+                inputRefs.current[i].focus();
+            }
+        }
+    };
+    const handleKeydown = (i, e) => {
+        if(e.key === "Backspace") {
+            const newOtp = [...otp];
+            newOtp[i] = "";
+            setOtp(newOtp);
+            if(i > 0 && inputRefs.current[i - 1]) {
+                inputRefs.current[i - 1].focus();
+            }
+        } else if(e.key === "ArrowRight") {
+            if(i < length - 1 && inputRefs.current[i + 1]) {
+                inputRefs.current[i + 1].focus();
+            }
+        } else if(e.key === "ArrowLeft") {
+            if(i > 0 && inputRefs.current[i - 1]) {
+                inputRefs.current[i - 1].focus();
+            }
+        }
+    };
     console.log(inputRefs);
 
     useEffect(() => {
