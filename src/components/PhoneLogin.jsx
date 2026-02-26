@@ -4,9 +4,10 @@ import PhoneOtp from './PhoneOtp';
 const PhoneLogin = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [showOTPField, setOTPField] = useState(false);
+    
     const handlePhoneSubmit = (e) => {
         e.preventDefault();
-        if(phoneNumber < 10) {
+        if(phoneNumber.length < 10) {
             alert("Please enter a valid phone number");
             return;
         }
@@ -19,12 +20,20 @@ const PhoneLogin = () => {
   return (
     <div>
         {!showOTPField ? <form onSubmit={handlePhoneSubmit}>
-            <input type="text" placeholder="Enter your phone number" value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}/>
-            <button onClick={handlePhoneSubmit}>submit</button>
+            <div className="form-group">
+                <input 
+                    type="text" 
+                    className="netflix-input"
+                    placeholder="Phone number" 
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+            </div>
+            <button type="submit" className="netflix-button">Next</button>
         </form>: <div>
-            <p>Enter otp send to number: {phoneNumber}</p>
+            <p className="otp-info">Enter OTP sent to: {phoneNumber}</p>
             <PhoneOtp length={4} onOtpSubmit={onOtpSubmit}/>
+            <button className="netflix-button" onClick={() => setOTPField(false)}>Change Phone Number</button>
             </div>}
     </div>
   )
